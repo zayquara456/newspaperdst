@@ -1,6 +1,6 @@
 <div class="container" style="max-width: 500px">
     <form method="post" action="">
-        <h2>Form register</h2>
+        <h2>Đăng kí(Blocked)</h2>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" value="" id="username" class="form-control"/>

@@ -42,7 +42,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.6.0 -->
 <script src="assets/js/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="assets/js/jquery-ui.min.js"></script>

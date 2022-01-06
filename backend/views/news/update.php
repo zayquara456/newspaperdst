@@ -1,75 +1,84 @@
-<h2>Cập nhật sản phẩm</h2>
+<h2>Cập nhật bài viết</h2>
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="category_id">Chọn danh mục</label>
-        <select name="category_id" class="form-control" id="category_id">
+        <label for="categoryid">Chọn danh mục</label>
+        <select name="categoryid" onchange="updatesubcate();" class="form-control" id="categoryid">
           <?php
           foreach ($categories as $category):
             $selected = '';
-            if ($category['id'] == $product['category_id']) {
+            if ($category['id'] == $new['categoryid']) {
               $selected = 'selected';
             }
-            if (isset($_POST['category_id']) && $category['id'] == $_POST['category_id']) {
+            if (isset($_POST['categoryid']) && $category['id'] == $_POST['categoryid']) {
               $selected = 'selected';
             }
             ?>
               <option value="<?php echo $category['id'] ?>" <?php echo $selected; ?>>
-                <?php echo $category['name'] ?>
+                <?php echo $category['Description'] ?>
               </option>
           <?php endforeach; ?>
         </select>
     </div>
+    <div id="subcategory">
+        <div class="form-group">
+        <label for="subcategoryid">Danh mục phụ</label>
+        <select name="subcategoryid" class="form-control" class="form-control" id="subcategoryid">
+            <option value='0' selected>Không danh mục phụ</option>
+          <?php
+          foreach ($subcate as $category):
+            $selected = '';
+            if ($category['SubCategoryId'] == $new['subcategoryid']) {
+              $selected = 'selected';
+            }
+            if (isset($_POST['subcategoryid']) && $category['id'] == $_POST['subcategoryid']) {
+              $selected = 'selected';
+            }
+            ?>
+              <option value="<?php echo $category['id'] ?>" <?php echo $selected; ?>>
+                <?php echo $category['SubCatDescription'] ?>
+              </option>
+          <?php endforeach; ?>
+        </select>
+        </div>
+    </div>
     <div class="form-group">
-        <label for="title">Nhập tên sản phẩm</label>
+        <label for="title">Tiêu đề</label>
         <input type="text" name="title"
-               value="<?php echo isset($_POST['title']) ? $_POST['title'] : $product['title'] ?>"
+               value="<?php echo isset($_POST['title']) ? $_POST['title'] : $new['title'] ?>"
                class="form-control" id="title"/>
     </div>
     <div class="form-group">
-        <label for="avatar">Ảnh đại diện</label>
+        <label for="summary">Mô tả ngắn</label>
+        <input type="text" name="summary"
+               value="<?php echo isset($_POST['summary']) ? $_POST['summary'] : $new['summary'] ?>"
+               class="form-control" id="summary"/>
+    </div>
+    <div class="form-group">
+        <label for="avatar">Ảnh minh họa bài viết</label>
         <input type="file" name="avatar" value="" class="form-control" id="avatar"/>
         <img src="#" id="img-preview" style="display: none" width="100" height="100"/>
-      <?php if (!empty($product['avatar'])): ?>
-          <img height="80" src="assets/uploads/<?php echo $product['avatar'] ?>"/>
+      <?php if (!empty($new['avatar'])): ?>
+          <img height="80" src="assets/images/<?php echo $new['avatar'] ?>"/>
       <?php endif; ?>
     </div>
     <div class="form-group">
-        <label for="price">Giá</label>
-        <input type="number" name="price"
-               value="<?php echo isset($_POST['price']) ? $_POST['price'] : $product['price'] ?>"
-               class="form-control" id="price"/>
-    </div>
-    <div class="form-group">
-        <label for="amount">Số lượng</label>
-        <input type="number" name="amount"
-               value="<?php echo isset($_POST['amount']) ? $_POST['amount'] : $product['amount'] ?>"
-               class="form-control" id="amount"/>
-    </div>
-    <div class="form-group">
-        <label for="summary">Mô tả ngắn sản phẩm</label>
-        <textarea name="summary" id="summary"
-                  class="form-control"><?php echo isset($_POST['summary']) ? $_POST['summary'] : $product['summary'] ?></textarea>
-    </div>
-    <div class="form-group">
-        <label for="description">Mô tả chi tiết sản phẩm</label>
+        <label for="description">Chi tiết bài viết</label>
         <textarea name="content" id="description"
-                  class="form-control"><?php echo isset($_POST['content']) ? $_POST['content'] : $product['content'] ?></textarea>
+                  class="form-control"><?php echo isset($_POST['content']) ? $_POST['content'] : $new['content'] ?></textarea>
     </div>
-
     <div class="form-group">
         <label for="seo-title">Seo title</label>
-        <input type="text" name="seo_title" value="<?php echo isset($_POST['seo_title']) ? $_POST['seo_title'] : $product['seo_title'] ?>"
+        <input type="text" name="seo_title" value="<?php echo isset($_POST['seo_title']) ? $_POST['seo_title'] : $new['seo_title'] ?>"
                class="form-control" id="seo-title"/>
     </div>
     <div class="form-group">
         <label for="seo-description">Seo description</label>
-        <input type="text" name="seo_description" value="<?php echo isset($_POST['seo_description']) ? $_POST['seo_description'] : $product['seo_description'] ?>"
+        <input type="text" name="seo_description" value="<?php echo isset($_POST['seo_description']) ? $_POST['seo_description'] : $new['seo_description'] ?>"
                class="form-control" id="seo-description"/>
     </div>
-
     <div class="form-group">
         <label for="seo-keywords">Seo keywords</label>
-        <input type="text" name="seo_keywords" value="<?php echo isset($_POST['seo_keywords']) ? $_POST['seo_keywords'] : $product['seo_keywords'] ?>"
+        <input type="text" name="seo_keywords" value="<?php echo isset($_POST['seo_keywords']) ? $_POST['seo_keywords'] : $new['seo_keywords'] ?>"
                class="form-control" id="seo-keywords"/>
     </div>
 
@@ -79,7 +88,7 @@
           <?php
           $selected_disabled = '';
           $selected_active = '';
-          if ($product['status'] == 0) {
+          if ($new['status'] == 0) {
             $selected_disabled = 'selected';
           } else {
             $selected_active = 'selected';
@@ -101,6 +110,22 @@
     </div>
     <div class="form-group">
         <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
-        <a href="index.php?controller=product&action=index" class="btn btn-default">Back</a>
+        <a href="index.php?controller=news&action=index" class="btn btn-default">Back</a>
     </div>
 </form>
+<script type="text/javascript">
+    function updatesubcate()
+            {
+                $.ajax({
+                    url : "index.php?controller=news&action=hiendanhmuc",
+                    type : "get",
+                    dateType:"number",
+                    data : { 
+                         idcate : $('#categoryid').val()
+                    },
+                    success : function (result){
+                       $('#subcategory').html(result);
+                    }
+                });
+            } 
+</script>

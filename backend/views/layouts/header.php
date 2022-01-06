@@ -77,7 +77,7 @@ if (isset($_SESSION['user'])) {
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">LAOYOUT ADMIN</li>
+            <li class="header">Trang quản trị Admin</li>
 
             <li>
                 <a href="index.php?controller=category&action=index">
@@ -88,8 +88,8 @@ if (isset($_SESSION['user'])) {
                 </a>
             </li>
             <li>
-                <a href="index.php?controller=product&action=index">
-                    <i class="fa fa-code"></i> <span>Quản lý sản phẩm</span>
+                <a href="index.php?controller=subcate&action=index">
+                    <i class="fa fa-code"></i> <span>Quản lý danh mục con</span>
                     <span class="pull-right-container">
               <!--<small class="label pull-right bg-green">new</small>-->
             </span>

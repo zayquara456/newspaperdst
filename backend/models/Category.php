@@ -63,9 +63,9 @@ VALUES (:name, :avatar, :description, :status)";
       ->fetchAll(PDO::FETCH_ASSOC);
     return $categories;
   }
-  public function getAllSubcate()
+  public function getSubcateByID($id)
   {
-    $sql_select_all = "SELECT SubCategoryId,CategoryId,SubCatDescription FROM tblsubcategory";
+    $sql_select_all = "SELECT SubCategoryId,CategoryId,SubCatDescription FROM tblsubcategory WHERE CategoryId = $id";
     //cbi đối tượng truy vấn
     $obj_select_all = $this->connection
       ->prepare($sql_select_all);

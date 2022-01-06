@@ -99,8 +99,8 @@ class News extends Model
     public function insert()
     {
         $obj_insert = $this->connection
-            ->prepare("INSERT INTO news(title, summary, content, avatar, categoryid, subcategoryid, status, seo_title, seo_description, seo_keywords) 
-                                VALUES (:title, :summary, :content, :avatar, :categoryid, :subcategoryid, :status, :seo_title, :seo_description, :seo_keywords)");
+            ->prepare("INSERT INTO news(title, summary, content, avatar, categoryid, subcategoryid, status, seo_title, seo_description, seo_keywords, created_at) 
+                                VALUES (:title, :summary, :content, :avatar, :categoryid, :subcategoryid, :status, :seo_title, :seo_description, :seo_keywords, :created_at)");
         $arr_insert = [
             ':title' => $this->title,
             ':summary' => $this->summary,
@@ -112,6 +112,7 @@ class News extends Model
             ':seo_title' => $this->seo_title,
             ':seo_description' => $this->seo_description,
             ':seo_keywords' => $this->seo_keywords,
+            ':created_at' => $this->created_at,
         ];
         return $obj_insert->execute($arr_insert);
     }

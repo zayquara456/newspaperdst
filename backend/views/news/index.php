@@ -10,7 +10,7 @@ require_once 'helpers/Helper.php';
     </div>
     <div class="form-group">
         <label for="title">Chọn danh mục</label>
-        <select name="category_id" class="form-control">
+        <select name="categoryid" class="form-control">
             <?php foreach ($categories as $category):
                 //giữ trạng thái selected của category sau khi chọn dựa vào
 //                tham số category_id trên trình duyệt
@@ -25,7 +25,7 @@ require_once 'helpers/Helper.php';
             <?php endforeach; ?>
         </select>
     </div>
-    <input type="hidden" name="controller" value="product"/>
+    <input type="hidden" name="controller" value="news"/>
     <input type="hidden" name="action" value="index"/>
     <input type="submit" name="search" value="Tìm kiếm" class="btn btn-primary"/>
     <a href="index.php?controller=news" class="btn btn-default">Xóa filter</a>
@@ -73,7 +73,7 @@ require_once 'helpers/Helper.php';
                     ?>
                     <a title="Chi tiết" href="<?php echo $url_detail ?>"><i class="fa fa-eye"></i></a> &nbsp;&nbsp;
                     <a title="Update" href="<?php echo $url_update ?>"><i class="fa fa-pencil-alt"></i></a> &nbsp;&nbsp;
-                    <a title="Xóa" href="<?php echo $url_delete ?>" onclick="return confirm('Are you sure delete?')"><i
+                    <a title="Xóa" href="<?php echo $url_delete ?>" onclick="return confirm('Bạn có chắc xóa bài viết số <?php echo $new['id'] ?>?')"><i
                                 class="fa fa-trash"></i></a>
                 </td>
             </tr>
