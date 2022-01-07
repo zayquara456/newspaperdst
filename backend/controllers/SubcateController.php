@@ -1,9 +1,10 @@
 <?php
 require_once 'controllers/Controller.php';
+require_once 'models/Subcate.php';
 require_once 'models/Category.php';
 require_once 'models/Pagination.php';
 
-class CategoryController extends Controller
+class SubcateController extends Controller
 {
   public function vn_to_str ($str){
     $unicode = array( 
@@ -32,12 +33,12 @@ class CategoryController extends Controller
   public function index()
   {
     //hiển thị danh sách category
-    $category_model = new Category();
+    $category_model = new Subcate();
     //do có sử dụng phân trang nên sẽ khai báo mảng các params
     $params = [
       'limit' => 10, //giới hạn 5 bản ghi 1 trang
       'query_string' => 'page',
-      'controller' => 'category',
+      'controller' => 'subcate',
       'action' => 'index',
       'full_mode' => FALSE,
     ];
@@ -65,7 +66,7 @@ class CategoryController extends Controller
     //lấy danh sách category sử dụng phân trang
     $categories = $category_model->getAllPagination($params);
 
-    $this->content = $this->render('views/categories/index.php', [
+    $this->content = $this->render('views/subcate/index.php', [
       //truyền biến $categories ra vew
       'categories' => $categories,
       //truyền biến phân trang ra view
@@ -79,24 +80,25 @@ class CategoryController extends Controller
   public function create()
   {
     if (isset($_POST['submit'])) {
-      $CategoryName = $_POST['CategoryName'];
-      $Description = $_POST['Description'];
-      $Is_Active = $_POST['Is_Active'];
+      $name = $_POST['name'];
+      $description = $_POST['description'];
+      $status = $_POST['status'];
+      $avatar_files = $_FILES['avatar'];
 
       //check validate
-      if (empty($CategoryName)) {
+      if (empty($name)) {
         $this->error = 'Cần nhập tên';
       } 
 
       if (empty($this->error)) {
         //lưu vào csdl
         //gọi model để thực  hiện lưu
-        $category_model = new Category();
+        $category_model = new Subcate();
         //gán các giá trị từ form cho các thuộc tính của category
-        $category_model->CategoryName = $CategoryName;
-        $category_model->Description = $Description;
-        $category_model->Is_Active = $Is_Active;
-        $category_model->PostingDate = date('Y-m-d H:i:s');
+        $category_model->name = $name;
+        $category_model->avatar = $avatar;
+        $category_model->description = $description;
+        $category_model->status = $status;
         //gọi phương thức insert
         $is_insert = $category_model->insert();
         if ($is_insert) {
@@ -104,15 +106,17 @@ class CategoryController extends Controller
         } else {
           $_SESSION['error'] = 'Thêm mới thất bại';
         }
-        header('Location: index.php?controller=category&action=index');
+        header('Location: index.php?controller=subcate&action=index');
         exit();
       }
 
     }
-
+    $cate_model = new Category();
+    $maincate = $cate_model->getAll();
     //lấy nội dung view create.php
-    $this->content = $this->render('views/categories/create.php');
-    //gọi layout để nhúng nội dung view create vừa lấy đc
+    $this->content = $this->render('views/subcate/create.php', [
+      'maincate' => $maincate,
+    ]);
     require_once 'views/layouts/main.php';
   }
 
@@ -123,12 +127,12 @@ class CategoryController extends Controller
     //check validate nếu id không tồn tại thì báo lỗi
     if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
       $_SESSION['error'] = 'ID category không hợp lệ';
-      header('Location: index.php?controller=category&action=index');
+      header('Location: index.php?controller=subcate&action=index');
       exit();
     }
 
     $id = $_GET['id'];
-    $category_model = new Category();
+    $category_model = new Subcate();
     $category = $category_model->getCategoryById($id);
     //submit form
     if (isset($_POST['submit'])) {
@@ -143,7 +147,7 @@ class CategoryController extends Controller
       if (empty($this->error)) {
         //lưu vào csdl
         //gọi model để thực  hiện lưu
-        $category_model = new Category();
+        $category_model = new Subcate();
         //gán các giá trị từ form cho các thuộc tính của category
         $category_model->CategoryName = $CategoryName;
         $category_model->Description = $Description;
@@ -156,7 +160,7 @@ class CategoryController extends Controller
         } else {
           $_SESSION['error'] = 'Update thất bại';
         }
-        header('Location: index.php?controller=category&action=index');
+        header('Location: index.php?controller=subcate&action=index');
         exit();
       }
 
@@ -172,18 +176,18 @@ class CategoryController extends Controller
   {
     if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
       $_SESSION['error'] = 'ID không hợp lệ';
-      header('Location: index.php?controller=category&action=index');
+      header('Location: index.php?controller=subcate&action=index');
       exit();
     }
     $id = $_GET['id'];
-    $category_model = new Category();
+    $category_model = new Subcate();
     $is_delete = $category_model->delete($id);
     if ($is_delete) {
       $_SESSION['success'] = 'Xóa thành công';
     } else {
       $_SESSION['error'] = 'Xóa thất bại';
     }
-    header('Location: index.php?controller=category&action=index');
+    header('Location: index.php?controller=subcate&action=index');
     exit();
   }
 
@@ -191,14 +195,14 @@ class CategoryController extends Controller
   {
     if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
       $_SESSION['error'] = 'ID không hợp lệ';
-      header('Location: index.php?controller=category&action=index');
+      header('Location: index.php?controller=subcate&action=index');
       exit();
     }
     $id = $_GET['id'];
-    $category_model = new Category();
+    $category_model = new Subcate();
     $category = $category_model->getCategoryById($id);
     //lấy nội dung view create.php
-    $this->content = $this->render('views/categories/detail.php', [
+    $this->content = $this->render('views/subcate/detail.php', [
       'category' => $category
     ]);
     //gọi layout để nhúng nội dung view detail vừa lấy đc

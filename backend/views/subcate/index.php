@@ -1,6 +1,6 @@
-<h1>Tìm kiếm</h1>
+<h1>Tìm kiếm danh mục con</h1>
 <form action="" method="get">
-    <input type="hidden" name="controller" value="category"/>
+    <input type="hidden" name="controller" value="subcate"/>
     <input type="hidden" name="action" value="index"/>
     <div class="form-group">
         <label>Nhập tên danh mục</label>
@@ -9,20 +9,21 @@
     </div>
     <div class="form-group">
         <input type="submit" name="submit" value="Tìm kiếm" class="btn btn-success"/>
-        <a href="index.php?controller=category" class="btn btn-secondary">Xóa filter</a>
+        <a href="index.php?controller=subcate" class="btn btn-secondary">Xóa filter</a>
     </div>
 </form>
 
-<h1>Danh sách danh mục</h1>
-<a href="index.php?controller=category&action=create" class="btn btn-primary">
-    <i class="fa fa-plus"></i> Thêm mới danh mục
+<h1>Danh sách danh mục con</h1>
+<a href="index.php?controller=subcate&action=create" class="btn btn-primary">
+    <i class="fa fa-plus"></i> Thêm mới danh mục con
 </a>
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
         <th>Tên danh mục</th>
-        <th>Ngày ra mắt danh mục</th>
-        <th>Ngày chỉnh sửa danh mục</th>
+        <th>Danh mục cha</th>
+        <th>Ngày thêm danh mục</th>
+        <th>Ngày sửa danh mục</th>
         <th>Trạng thái</th>
         <th></th>
     </tr>
@@ -30,10 +31,13 @@
     <?php foreach ($categories as $category): ?>
           <tr>
               <td>
-                <?php echo $category['id']; ?>
+                <?php echo $category['SubCategoryId']; ?>
               </td>
               <td>
-                <?php echo $category['Description']; ?>
+                <?php echo $category['SubCatDescription']; ?>
+              </td>
+              <td>
+                <?php echo $category['danhmuccha']; ?>
               </td>
               <td>
                 <?php echo date('d-m-Y H:i:s', strtotime($category['PostingDate'])); ?>
@@ -55,15 +59,15 @@
                 ?>
               </td>
               <td>
-                  <a href="index.php?controller=category&action=detail&id=<?php echo $category['id'] ?>"
+                  <a href="index.php?controller=subcate&action=detail&id=<?php echo $category['SubCategoryId'] ?>"
                      title="Chi tiết">
                       <i class="fa fa-eye"></i>
                   </a>
-                  <a href="index.php?controller=category&action=update&id=<?php echo $category['id'] ?>" title="Sửa">
+                  <a href="index.php?controller=subcate&action=update&id=<?php echo $category['SubCategoryId'] ?>" title="Sửa">
                       <i class="fa fa-pencil-alt"></i>
                   </a>
-                  <a href="index.php?controller=category&action=delete&id=<?php echo $category['id'] ?>" title="Xóa"
-                     onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục <?php echo $category['id'] ?> ')">
+                  <a href="index.php?controller=subcate&action=delete&id=<?php echo $category['SubCategoryId'] ?>" title="Xóa"
+                     onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục <?php echo $category['SubCategoryId'] ?> ')">
                       <i class="fa fa-trash"></i>
                   </a>
               </td>

@@ -3,14 +3,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}% !-f
 RewriteCond %{REQUEST_FILENAME}% !-d
 
-RewriteRule gio-hang-cua-ban.html index.php?controller=cart&action=index
-RewriteRule xoa-san-pham/([0-9]+).html index.php?controller=cart&action=delete&id=$1
-RewriteRule xoa-tat-ca.html index.php?controller=cart&action=deleteAll
 RewriteRule chi-tiet-tin/(.*)/([0-9]+).html index.php?controller=news&action=detail&title=$1&i=$2
-RewriteRule thanh-toan.html index.php?controller=payment&action=index
-RewriteRule thanh-toan-online.html index.php?controller=payment&action=online
-RewriteRule san-pham/(.*)/([0-9]+).html index.php?controller=product&action=detail&id=$2
-RewriteRule danh-sach-san-pham.html index.php?controller=sanpham
 RewriteRule danhmuc(.*).html index.php?controller=Danhmuc&name=$1
 RewriteRule danhmuc(.*)-p([0-9]+).html index.php?controller=Danhmuc&name=$1&page=$2
 RewriteRule news.html index.php?controller=news&action=index

@@ -1,17 +1,17 @@
-<h1>Chi tiết danh mục</h1>
+<h1>Chi tiết danh mục con</h1>
 
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
-        <td><?php echo $category['id']; ?></td>
+        <td><?php echo $category['SubCategoryId']; ?></td>
     </tr>
     <tr>
-        <th>Tên ngắn ngọn</th>
-        <td><?php echo $category['CategoryName']; ?></td>
+        <th>Tên danh mục cha</th>
+        <td><?php echo $category['danhmuccha']; ?></td>
     </tr>
     <tr>
         <th>Tên danh mục</th>
-        <td><?php echo $category['Description']; ?></td>
+        <td><?php echo $category['SubCatDescription']; ?></td>
     </tr>
     <tr>
         <th>Ngày tạo</th>

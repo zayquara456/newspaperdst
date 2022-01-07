@@ -31,7 +31,7 @@ class LoginController
     public function login() {
         //nếu user đã đăngn hập r thì ko cho truy cập lại trang login, mà chuenr hướng tới backend
         if (isset($_SESSION['user'])) {
-            header('Location: index.php?controller=category&action=index');
+            header('Location: index.php?controller=news&action=index');
             exit();
         }
         if (isset($_POST['submit'])) {
@@ -53,7 +53,7 @@ class LoginController
                     $_SESSION['success'] = 'Đăng nhập thành công';
                     //tạo session user để xác định user nào đang login
                     $_SESSION['user'] = $user;
-                    header("Location: index.php?controller=product");
+                    header("Location: index.php?controller=news");
                     exit();
                 }
             }
