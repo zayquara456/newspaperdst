@@ -19,8 +19,8 @@
             <?php
             $selected_active = '';
             $selected_disabled = '';
-            if (isset($_POST['Is_Active'])) {
-                switch ($_POST['Is_Active']) {
+            if (isset($category['Is_Active'])) {
+                switch ($category['Is_Active']) {
                     case 0:
                       $selected_disabled = 'selected';
                         break;
@@ -32,8 +32,8 @@
             ?>
             <label>Trạng thái</label>
             <select name="Is_Active" class="form-control">
-                <option value="0" <?php echo $selected_active ?> >Disabled</option>
-                <option value="1" <?php echo $selected_disabled ?> >Active</option>
+                <option value="0" <?php echo $selected_disabled ?> >Disabled</option>
+                <option value="1" <?php echo $selected_active ?> >Active</option>
             </select>
         </div>
 

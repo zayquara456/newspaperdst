@@ -1,3 +1,4 @@
+<?php if($_SESSION['user']['level'] == 1) { ?>
 <h2>Cập nhật user</h2>
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -81,3 +82,4 @@
         <a href="index.php?controller=user&action=index" class="btn btn-default">Back</a>
     </div>
 </form>
+<?php } else echo '<h3>Bạn không có quyền truy cập vào đây</h3>'; ?>

@@ -1,3 +1,4 @@
+<?php if($_SESSION['user']['level'] == 1) { ?>
 <?php
 require_once 'helpers/Helper.php';
 ?>
@@ -61,3 +62,4 @@ require_once 'helpers/Helper.php';
     </tr>
 </table>
 <a href="index.php?controller=user&action=index" class="btn btn-default">Back</a>
+<?php } else echo '<h3>Bạn không có quyền truy cập vào đây</h3>'; ?>

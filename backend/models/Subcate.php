@@ -15,15 +15,16 @@ class Subcate extends Model {
   //insert dữ liệu vào bảng categories
   public function insert() {
     $sql_insert =
-      "INSERT INTO tblsubcategory(`CategoryName`, `Description`, `PostingDate`, `Is_Active`)
-VALUES (:CategoryName, :Description, :PostingDate, :Is_Active)";
+      "INSERT INTO tblsubcategory(`CategoryId`,`Subcategory`, `SubCatDescription`, `PostingDate`, `Is_Active`)
+VALUES (:CategoryId, :Subcategory, :SubCatDescription, :PostingDate, :Is_Active)";
     //cbi đối tượng truy vấn
     $obj_insert = $this->connection
       ->prepare($sql_insert);
     //gán giá trị thật cho các placeholder
     $arr_insert = [
-      ':CategoryName' => $this->CategoryName,
-      ':Description' => $this->Description,
+      ':CategoryId' => $this->CategoryId,
+      ':Subcategory' => $this->Subcategory,
+      ':SubCatDescription' => $this->SubCatDescription,
       ':PostingDate' => $this->PostingDate,
       ':Is_Active' => $this->Is_Active
     ];
@@ -48,7 +49,7 @@ VALUES (:CategoryName, :Description, :PostingDate, :Is_Active)";
   {
     $obj_select = $this->connection
       ->prepare("SELECT tblsubcategory.*, tblcategory.Description AS danhmuccha FROM tblsubcategory
-        LEFT JOIN tblcategory ON tblsubcategory.CategoryId = tblcategory.id WHERE SubCategoryId = $id");
+        LEFT JOIN tblcategory ON tblsubcategory.CategoryId = tblcategory.id WHERE tblsubcategory.SubCategoryId = $id");
     $obj_select->execute();
     $category = $obj_select->fetch(PDO::FETCH_ASSOC);
 
@@ -62,11 +63,12 @@ VALUES (:CategoryName, :Description, :PostingDate, :Is_Active)";
    */
   public function update($id)
   {
-    $obj_update = $this->connection->prepare("UPDATE tblsubcategory SET `CategoryName` = :CategoryName, `Description` = :Description, `UpdationDate` = :UpdationDate, `Is_Active` = :Is_Active
+    $obj_update = $this->connection->prepare("UPDATE tblsubcategory SET `CategoryId` = :CategoryId, `Subcategory` = :Subcategory, `SubCatDescription` = :SubCatDescription, `UpdationDate` = :UpdationDate, `Is_Active` = :Is_Active
          WHERE SubCategoryId = $id");
     $arr_update = [
-      ':CategoryName' => $this->CategoryName,
-      ':Description' => $this->Description,
+      ':CategoryId' => $this->CategoryId,
+      ':Subcategory' => $this->Subcategory,
+      ':SubCatDescription' => $this->SubCatDescription,
       ':UpdationDate' => $this->UpdationDate,
       ':Is_Active' => $this->Is_Active,
     ];
@@ -82,7 +84,7 @@ VALUES (:CategoryName, :Description, :PostingDate, :Is_Active)";
   public function delete($id)
   {
     $obj_delete = $this->connection
-      ->prepare("DELETE FROM tblsubcategory WHERE CategoryId = $id");
+      ->prepare("DELETE FROM tblsubcategory WHERE SubCategoryId = $id");
     $is_delete = $obj_delete->execute();
     //để đảm bảo toàn vẹn dữ liệu, sau khi xóa category thì cần xóa cả các product nào đang thuộc về category này
     $obj_delete_product = $this->connection
@@ -131,5 +133,28 @@ VALUES (:CategoryName, :Description, :PostingDate, :Is_Active)";
     $categories = $obj_select->fetchAll(PDO::FETCH_ASSOC);
 
     return $categories;
+  }
+  public function vn_to_str($str){
+    $unicode = array( 
+    'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ', 
+    'd'=>'đ',
+    'e'=>'é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ',
+    'i'=>'í|ì|ỉ|ĩ|ị',
+    'o'=>'ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ',
+    'u'=>'ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự',
+    'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
+    'A'=>'Á|À|Ả|Ã|Ạ|Ă|Ắ|Ặ|Ằ|Ẳ|Ẵ|Â|Ấ|Ầ|Ẩ|Ẫ|Ậ',
+    'D'=>'Đ',
+    'E'=>'É|È|Ẻ|Ẽ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ',
+    'I'=>'Í|Ì|Ỉ|Ĩ|Ị',
+    'O'=>'Ó|Ò|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ổ|Ỗ|Ộ|Ơ|Ớ|Ờ|Ở|Ỡ|Ợ',
+    'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
+    'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
+    );
+    foreach($unicode as $nonUnicode=>$uni){
+    $str = preg_replace("/($uni)/i", $nonUnicode, $str);
+    }
+    $str = str_replace(' ','',$str);
+    return $str;
   }
 }

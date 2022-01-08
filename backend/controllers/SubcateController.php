@@ -6,30 +6,6 @@ require_once 'models/Pagination.php';
 
 class SubcateController extends Controller
 {
-  public function vn_to_str ($str){
-    $unicode = array( 
-    'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ', 
-    'd'=>'đ',
-    'e'=>'é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ',
-    'i'=>'í|ì|ỉ|ĩ|ị',
-    'o'=>'ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ',
-    'u'=>'ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự',
-    'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
-    'A'=>'Á|À|Ả|Ã|Ạ|Ă|Ắ|Ặ|Ằ|Ẳ|Ẵ|Â|Ấ|Ầ|Ẩ|Ẫ|Ậ',
-    'D'=>'Đ',
-    'E'=>'É|È|Ẻ|Ẽ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ',
-    'I'=>'Í|Ì|Ỉ|Ĩ|Ị',
-    'O'=>'Ó|Ò|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ổ|Ỗ|Ộ|Ơ|Ớ|Ờ|Ở|Ỡ|Ợ',
-    'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
-    'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
-    );
-    foreach($unicode as $nonUnicode=>$uni){
-    $str = preg_replace("/($uni)/i", $nonUnicode, $str);
-    }
-    $str = str_replace(' ','_',$str);
-    return $str;
-  }
-
   public function index()
   {
     //hiển thị danh sách category
@@ -80,14 +56,13 @@ class SubcateController extends Controller
   public function create()
   {
     if (isset($_POST['submit'])) {
-      $name = $_POST['name'];
-      $description = $_POST['description'];
-      $status = $_POST['status'];
-      $avatar_files = $_FILES['avatar'];
+      $CategoryId = $_POST['categoryid'];
+      $SubCatDescription = $_POST['SubCatDescription'];
+      $status = $_POST['Is_Active'];
 
       //check validate
-      if (empty($name)) {
-        $this->error = 'Cần nhập tên';
+      if (empty($SubCatDescription)) {
+        $this->error = 'Cần nhập tên danh mục con';
       } 
 
       if (empty($this->error)) {
@@ -95,16 +70,17 @@ class SubcateController extends Controller
         //gọi model để thực  hiện lưu
         $category_model = new Subcate();
         //gán các giá trị từ form cho các thuộc tính của category
-        $category_model->name = $name;
-        $category_model->avatar = $avatar;
-        $category_model->description = $description;
-        $category_model->status = $status;
+        $category_model->CategoryId = $CategoryId;
+        $category_model->Subcategory = $category_model->vn_to_str($SubCatDescription);
+        $category_model->SubCatDescription = $SubCatDescription;
+        $category_model->Is_Active = $status;
+        $category_model->PostingDate = date('Y-m-d H:i:s');
         //gọi phương thức insert
         $is_insert = $category_model->insert();
         if ($is_insert) {
-          $_SESSION['success'] = 'Thêm mới thành công';
+          $_SESSION['success'] = 'Thêm mới danh mục con thành công';
         } else {
-          $_SESSION['error'] = 'Thêm mới thất bại';
+          $_SESSION['error'] = 'Thêm mới danh mục con thất bại';
         }
         header('Location: index.php?controller=subcate&action=index');
         exit();
@@ -133,14 +109,15 @@ class SubcateController extends Controller
 
     $id = $_GET['id'];
     $category_model = new Subcate();
-    $category = $category_model->getCategoryById($id);
+    $subcategory = $category_model->getCategoryById($id);
     //submit form
     if (isset($_POST['submit'])) {
-      $CategoryName = $_POST['CategoryName'];
-      $Description = $_POST['Description'];
+      $CategoryId = $_POST['categoryid'];
+      $SubCatDescription = $_POST['SubCatDescription'];
+      $Subcategory = $_POST['Subcategory'];
       $Is_Active = $_POST['Is_Active'];
       //check validate
-      if (empty($CategoryName)) {
+      if (empty($SubCatDescription)) {
         $this->error = 'Cần nhập tên';
       } 
 
@@ -149,8 +126,9 @@ class SubcateController extends Controller
         //gọi model để thực  hiện lưu
         $category_model = new Subcate();
         //gán các giá trị từ form cho các thuộc tính của category
-        $category_model->CategoryName = $CategoryName;
-        $category_model->Description = $Description;
+        $category_model->CategoryId = $CategoryId;
+        $category_model->SubCatDescription = $SubCatDescription;
+        $category_model->Subcategory = $Subcategory;
         $category_model->Is_Active = $Is_Active;
         $category_model->UpdationDate = date('Y-m-d H:i:s');
         //gọi phương thức update theo id
@@ -165,9 +143,12 @@ class SubcateController extends Controller
       }
 
     }
-
+    $cate_model = new Category();
+    $maincate = $cate_model->getAll();
     //lấy nội dung view create.php
-    $this->content = $this->render('views/categories/update.php', ['category' => $category]);
+    $this->content = $this->render('views/subcate/update.php', [
+    'subcategory' => $subcategory,
+    'maincate' => $maincate,]);
     //gọi layout để nhúng nội dung view create vừa lấy đc
     require_once 'views/layouts/main.php';
   }

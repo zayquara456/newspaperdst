@@ -49,6 +49,9 @@ class LoginController
                 $user = $user_model->getUserByUsernameAndPassword($username, $password);
                 if (empty($user)) {
                     $this->error = 'Sai username hoặc password';
+                }
+                else if ($user['level'] > 2) {
+                    $this->error = 'Bạn không có quyền truy cập vào đây';
                 } else {
                     $_SESSION['success'] = 'Đăng nhập thành công';
                     //tạo session user để xác định user nào đang login
@@ -72,6 +75,7 @@ class LoginController
             $user_model = new User();
             $username = $_POST['username'];
             $password = $_POST['password'];
+            $email = $_POST['email'];
             $password_confirm = $_POST['password_confirm'];
             $user = $user_model->getUserByUsername($username);
             //check validate
@@ -81,6 +85,8 @@ class LoginController
                 $this->error = 'Password nhập lại chưa đúng';
             } else if (!empty($user)) {
                 $this->error = 'Username này đã tồn tại';
+            } else if (empty($email)) {
+                $this->error = 'Bạn cần nhập email để chúng tôi có thể liên hệ xác minh tuyển dụng';
             }
             //xử lý lưu dữ liệu khi không có lỗi
             if (empty($this->error)) {

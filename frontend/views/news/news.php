@@ -24,7 +24,7 @@ require_once 'helpers/Helper.php';
                 <img src="../backend/assets/images/<?php echo $items['avatar'] ?>"
                                     title="<?php echo $items['title'] ?>"
                                     alt="<?php echo $items['title'] ?>" class="entry__img d-none">
-                <a href="categories.html" class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--blue"><?php echo $items['category_name'] ?></a>
+                <a href="danhmuc<?php echo $items['CategoryName'] ?>.html" class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--blue"><?php echo $items['category_name'] ?></a>
               </div>
 
               <div class="entry__body post-list__body card__body">
@@ -64,7 +64,7 @@ require_once 'helpers/Helper.php';
             <ul>
             <?php if(!empty($categories)){
                     foreach($categories as $danhmuc){?>
-              <li><a href="categories.html"><?php echo $danhmuc['Description'] ?></a></li>
+              <li><a href="danhmuc<?php echo $danhmuc['CategoryName'] ?>.html"><?php echo $danhmuc['Description'] ?></a></li>
           <?php } } ?>
             </ul>
           </aside> <!-- end widget categories -->

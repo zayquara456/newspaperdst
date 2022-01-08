@@ -40,5 +40,5 @@
  
 
 </table>
-<a class="btn btn-primary" href="index.php?controller=category">Back</a>
+<a class="btn btn-primary" href="index.php?controller=subcate">Back</a>
 

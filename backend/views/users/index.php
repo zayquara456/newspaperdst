@@ -1,3 +1,4 @@
+<?php if($_SESSION['user']['level'] == 1) { ?>
 <form method="GET" action="">
     <div class="form-group">
         <label for="username">Username</label>
@@ -64,3 +65,4 @@
     <?php endif; ?>
 </table>
 <?php echo $pages; ?>
+<?php } else echo '<h3>Bạn không có quyền truy cập vào đây</h3>'; ?>
