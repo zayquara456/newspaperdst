@@ -15,3 +15,6 @@ RewriteRule login.html index.php?controller=customer&action=login
 RewriteRule register.html index.php?controller=customer&action=register
 # Rewrite cho trang register
 RewriteRule logout.html index.php?controller=customer&action=logout
+RedirectMatch 403 ^/backend/assets/images/?$
+RedirectMatch 403 ^/backend/assets/?$
+ErrorDocument 404 /index.php?controller=home&action=khongtimthay

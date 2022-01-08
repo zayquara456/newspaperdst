@@ -22,7 +22,7 @@
     <nav class="sidenav__menu-container">
       <ul class="sidenav__menu" role="menubar">
         <li>
-          <a href="/frontend" class="sidenav__menu-url">Trang chủ</a>
+          <a href="/" class="sidenav__menu-url">Trang chủ</a>
           <button class="sidenav__menu-toggle" aria-haspopup="true" aria-label="Open dropdown"><i class="ui-arrow-down"></i></button>
           <ul class="sidenav__menu-dropdown">
             <li><a href="tin-tuc-24h-p1.html" class="sidenav__menu-url">Tin tức 24h</a></li>
@@ -130,7 +130,7 @@
             </button> 
 
             <!-- Logo -->
-            <a href="/frontend" class="logo">
+            <a href="/" class="logo">
               <img class="logo__img" src="http://zayquara1.cf/images/icon.png" srcset="http://zayquara1.cf/images/icon.png 1x, http://zayquara1.cf/images/icon.png 2x" alt="logo">
             </a>
 
@@ -138,8 +138,8 @@
             <nav class="flex-child nav__wrap d-none d-lg-block">              
               <ul class="nav__menu">
 
-                <li class="nav__dropdown active">
-                  <a href="/frontend">Trang chủ</a>
+                <li class="nav__dropdown">
+                  <a href="/">Trang chủ</a>
                   <ul class="nav__dropdown-menu">
                     <li><a href="tin-tuc-24h-p1.html">Tin tức 24h</a></li>
                     <li><a href="index-politics.html">Home Politics</a></li>
@@ -176,8 +176,9 @@
                   <i class="ui-search nav__search-trigger-icon"></i>
                 </a>
                 <div class="nav__search-box" id="nav__search-box">
-                  <form class="nav__search-form">
-                    <input type="text" placeholder="Search an article" class="nav__search-input">
+                  <form class="nav__search-form" method="get" action="http://google.com/search">
+                    <input type="text" placeholder="Nhập nội dung cần tìm" name="q" class="nav__search-input">
+                    <input type="hidden" name="sitesearch" value="vnexpress.net"/>
                     <button type="submit" class="search-button btn btn-lg btn-color btn-button">
                       <i class="ui-search nav__search-icon"></i>
                     </button>

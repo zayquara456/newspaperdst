@@ -35,7 +35,7 @@ require_once 'helpers/Helper.php';
             <article class="entry mb-0">
               
               <div class="single-post__entry-header entry__header">
-                <a href="danhmuc<?php echo $items['mamucchinh']; ?>" class="entry__meta-category entry__meta-category--label entry__meta-category--green"><?php echo $items['tendmchinh']; ?></a>
+                <a href="danhmuc<?php echo $items['mamucchinh']; ?>.html" class="entry__meta-category entry__meta-category--label entry__meta-category--green"><?php echo $items['tendmchinh']; ?></a>
                 <h1 class="single-post__entry-title">
                  <?php echo $items['title'] ?>
                 </h1>

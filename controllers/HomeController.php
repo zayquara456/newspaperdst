@@ -19,4 +19,8 @@ class HomeController extends Controller {
     ]);
     require_once 'views/layouts/main.php';
   }
+  public function khongtimthay() {
+    $this->content = $this->render('views/homes/404.php');
+    require_once 'views/layouts/main.php';
+  }
 }
