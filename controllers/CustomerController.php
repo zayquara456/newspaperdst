@@ -55,7 +55,7 @@ class CustomerController
                         setcookie('is_login', true, time()+3600);
                         setcookie('username', $username, time()+3600);
                     }
-                    $_SESSION['username'] = $username;
+                    $_SESSION['username'] = $user;
                     header("Location: index.php");
                     exit();
                 }

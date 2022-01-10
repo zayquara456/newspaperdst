@@ -83,12 +83,15 @@
               <li><a href="#">About</a></li>
               <li><a href="#">Advertise</a></li>
               <li><a href="#">Contact</a></li>
-              <li><a href="">Xin chào <?php if(isset($_SESSION['username'])) echo $_SESSION['username'];  else echo ""; ?></a></li>
+              <li><a href="">Xin chào <?php if(isset($_SESSION['username'])) echo $_SESSION['username']['username'];  else echo ""; ?></a></li>
                 <?php if(isset($_SESSION['username'])){?>
                         <li><a href="logout.html" class="material-button submenu-toggle">Đăng xuất</a></li>
                     <?php }else{?>
                       <li><a href="login.html" class="material-button submenu-toggle">Đăng nhập</a></li>
                     <?php }?>
+              <?php if(isset($_SESSION['username']) && $_SESSION['username']['level'] < 3){ ?>
+                <li><a href="./backend?key=DST">Trang quản trị</a></li>
+              <?php  } ?>
             </ul>
           </div>
           

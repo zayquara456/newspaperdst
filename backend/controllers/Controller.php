@@ -10,7 +10,7 @@ class Controller
 {
     public function __construct()
     {
-        if (!isset($_SESSION['user'])) {
+        if (!isset($_SESSION['user']) && isset($_GET['key'])) {
             $_SESSION['error'] = 'Bạn cần đăng nhập';
             header('Location: index.php?controller=login&action=login');
             exit();
