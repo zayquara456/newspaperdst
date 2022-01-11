@@ -1,7 +1,14 @@
 <?php
 require_once 'helpers/Helper.php';
+ $slug = Helper::getSlug($new['title']);
+ $items_link = "tt-$slug/" . $new['id'] . ".html";
 ?>
+<style type="text/css">img {
+    width: 100px; height: 100px;
+}</style>
 <table class="table table-bordered">
+    <tr><th>Đường dẫn bài viết</th>
+        <td><a href="/<?php echo $items_link; ?>">Click here</a></td></tr>
     <tr>
         <th>ID</th>
         <td><?php echo $new['id']?></td>
