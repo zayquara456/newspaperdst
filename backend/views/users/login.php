@@ -1,19 +1,46 @@
-<div class="container" style="max-width: 500px">
-    <form method="post" action="">
-        <h2>Đăng nhập</h2>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" name="username" placeholder="Nhập tài khoản" value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" id="username" class="form-control"/>
+<div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a href="/" class="h1"><b>Zayquara1</b>DST</a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Đăng nhập để bắt đầu</p>
+
+      <form action="" method="post">
+        <div class="input-group mb-3">
+          <input type="text" name="username" id="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" class="form-control" placeholder="Tên đăng nhập">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" placeholder="Nhập mật khẩu" name="password" value="" id="password" class="form-control"/>
+        <div class="input-group mb-3">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-            <input type="submit" name="submit" value="Đăng nhập" class="btn btn-primary"/>
-            <p>
-                Bạn muốn làm cộng tác viên cho trang, <a href="index.php?controller=login&action=register">Đăng ký</a> ngay
-            </p>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" name="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+          </div>
+          <!-- /.col -->
         </div>
-    </form>
-</div>
+      </form>
+      <p class="mb-0">
+        <a href="index.php?controller=login&action=register" class="text-center">Đăng kí làm cộng tác viên cho trang</a>
+      </p>
+    </div>
+    <!-- /.card-body -->
+  </div>

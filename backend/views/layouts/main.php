@@ -9,6 +9,7 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="icheck-bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/all.min.css">
     <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -18,7 +19,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
     <?php require_once 'header.php';
@@ -54,5 +55,6 @@
 <script src="assets/ckeditor/ckeditor.js"></script>
 <!--My SCRIPT-->
 <script src="assets/js/script.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

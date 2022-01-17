@@ -1,7 +1,11 @@
 <?php if($_SESSION['user']['level'] == 1) { ?>
-<h2>Thêm mới user</h2>
-<form action="" method="post" enctype="multipart/form-data">
-    <div class="form-group">
+<div class="card card-primary">
+  <div class="card-header">
+    <h3 style="font-size:18px;" class="card-title">Thêm mới người dùng</h3>
+  </div>
+  <form method="post" action="" enctype="multipart/form-data">
+    <div class="card-body">
+      <div class="form-group">
         <label for="username">Username <span class="red">*</span></label>
         <input type="text" name="username" id="username"
                value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" class="form-control"/>
@@ -70,8 +74,22 @@
         </select>
     </div>
     <div class="form-group">
-        <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
-        <a href="index.php?controller=user&action=index" class="btn btn-default">Back</a>
+        <label for="level">Phân quyền</label>
+        <select name="level" class="form-control" id="level">
+            <option value="0">Người dùng</option>
+            <option value="1">Người quản trị</option>
+            <option value="2">Biên tập viên</option>
+            <option value="3">Tác giả</option>
+        </select>
     </div>
-</form>
-<?php } else echo '<h3>Bạn không có quyền truy cập vào đây</h3>'; ?>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" name="submit" class="btn btn-primary">Thêm mới</button>
+                  <button type="reset" class="btn btn-secondary" name="submit">Reset</button>
+                  <a class="btn btn-lg btn-secondary" href="index.php?controller=user&action=index">Quay lại</a>
+                </div>
+              </form>
+            </div>
+            <?php } else echo '<h3>Bạn không có quyền truy cập vào đây</h3>'; ?>

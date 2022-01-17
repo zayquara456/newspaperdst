@@ -11,124 +11,108 @@ if (isset($_SESSION['user'])) {
 }
 
 ?>
-<header class="main-header">
-    <!-- Logo -->
-    <a href="index.php" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <i class="fa fa-bars"></i>
-        </a>
+ <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.php" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="http://zayquara1.xtgem.com" class="nav-link">Liên hệ</a>
+      </li>
+    </ul>
 
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown user user-menu">
+        <a class="nav-link" data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <img src="assets/uploads/<?php echo $avatar; ?>" class="user-image" alt="User Image">
-                        <span class="hidden-xs"><?php echo $username; ?></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src="assets/uploads/<?php echo $avatar; ?>" class="img-circle" alt="User Image">
-
-                            <p>
-                                <?php echo $username . ' - ' . $jobs; ?>
-                                <small>Thành viên từ năm <?php echo $year; ?></small>
-                            </p>
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                        <span class="hidden-xs"><?php echo $username; ?></span>                  
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span style="font-size: 16px;" class="dropdown-item dropdown-header"><?php echo $username . ' - ' . $jobs; ?></span>
+          <div class="dropdown-divider"></div>
+        <big>Thành viên từ năm <?php echo $year; ?></big>
+          <div class="dropdown-divider"></div>
+          <div class="pull-left">
+                                <a style="font-size: 16px;" href="#" class="btn btn-default btn-flat dropdown-item">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="index.php?controller=user&action=logout" class="btn btn-default btn-flat">Sign
+                                <a style="font-size: 16px;" href="index.php?controller=user&action=logout" class="btn btn-default btn-flat dropdown-item">Sign
                                     out</a>
                             </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
         </div>
-    </nav>
-</header>
-<!-- Left side column. contains the logo and sidebar -->
-<aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="assets/uploads/admin.png" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p><?php echo $username; ?></p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Trang quản trị Admin</li>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
-            <li>
-                <a href="index.php?controller=category&action=index">
-                    <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
+<!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="assets/uploads/<?php echo $avatar; ?>" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block"><?php echo $username; ?></a>
+        </div>
+      </div>
+       <nav class="mt-2">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a href="index.php?controller=category&action=index" class="nav-link">
+                    <i class="fa fa-th"></i> <p>Quản lý danh mục</p>
                     <span class="pull-right-container">
               <!--<small class="label pull-right bg-green">new</small>-->
             </span>
                 </a>
             </li>
-            <li>
-                <a href="index.php?controller=subcate&action=index">
-                    <i class="fa fa-code"></i> <span>Quản lý danh mục con</span>
+            <li class="nav-item">
+                <a href="index.php?controller=subcate&action=index" class="nav-link">
+                    <i class="fa fa-code"></i> <p>Quản lý danh mục con</p>
                     <span class="pull-right-container">
               <!--<small class="label pull-right bg-green">new</small>-->
             </span>
                 </a>
             </li>
-            <li>
-                <a href="index.php?controller=user&action=index">
-                    <i class="fa fa-user"></i> <span>Quản lý user</span>
+            <li class="nav-item">
+                <a href="index.php?controller=user&action=index" class="nav-link">
+                    <i class="fa fa-user"></i> <p>Quản lý user</p>
                     <span class="pull-right-container">
               <!--<small class="label pull-right bg-green">new</small>-->
             </span>
                 </a>
             </li>
-             <li>
-                <a href="index.php?controller=news&action=index">
-                    <i class="fa fa-list-alt"></i> <span>Quản lý bài viết</span>
+             <li class="nav-item">
+                <a href="index.php?controller=news&action=index" class="nav-link">
+                    <i class="fa fa-list-alt"></i> <p>Quản lý bài viết</p>
                     <span class="pull-right-container">
               <!--<small class="label pull-right bg-green">new</small>-->
             </span>
                 </a>
             </li>
         </ul>
-    </section>
+    </nav>
+    </div>
     <!-- /.sidebar -->
 </aside>
-
-<!-- Breadcrumd Wrapper. Contains breadcrumb -->
-<div class="breadcrumb-wrap content-wrap content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Dashboard
-            <small>Control panel</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-        </ol>
-    </section>
-</div>
 
 <!-- Messaeg Wrapper. Contains messaege error and success -->
 <div class="message-wrap content-wrap content-wrapper">

@@ -1,24 +1,32 @@
-<h2>Cập nhật bài viết</h2>
-<form action="" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="categoryid">Chọn danh mục</label>
-        <select name="categoryid" onchange="updatesubcate();" class="form-control" id="categoryid">
-          <?php
-          foreach ($categories as $category):
-            $selected = '';
-            if ($category['id'] == $new['categoryid']) {
-              $selected = 'selected';
-            }
-            if (isset($_POST['categoryid']) && $category['id'] == $_POST['categoryid']) {
-              $selected = 'selected';
-            }
-            ?>
-              <option value="<?php echo $category['id'] ?>" <?php echo $selected; ?>>
-                <?php echo $category['Description'] ?>
-              </option>
-          <?php endforeach; ?>
-        </select>
-    </div>
+<div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 style="font-size:18px;" class="card-title">Cập nhật bài viết</h3>
+              </div>
+               <form method="post" action="" enctype="multipart/form-data">
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <div class="form-group">
+                        <label for="categoryid">Chọn danh mục</label>
+                        <select name="categoryid" onchange="updatesubcate();" class="form-control" id="categoryid">
+                          <?php
+                          foreach ($categories as $category):
+                            $selected = '';
+                            if ($category['id'] == $new['categoryid']) {
+                              $selected = 'selected';
+                            }
+                            if (isset($_POST['categoryid']) && $category['id'] == $_POST['categoryid']) {
+                              $selected = 'selected';
+                            }
+                            ?>
+                              <option value="<?php echo $category['id'] ?>" <?php echo $selected; ?>>
+                                <?php echo $category['Description'] ?>
+                              </option>
+                          <?php endforeach; ?>
+                        </select>
+                    </div>
     <div id="subcategory">
         <div class="form-group">
         <label for="subcategoryid">Danh mục phụ</label>
@@ -62,11 +70,6 @@
       <?php endif; ?>
     </div>
     <div class="form-group">
-        <label for="description">Chi tiết bài viết</label>
-        <textarea name="content" id="description"
-                  class="form-control"><?php echo isset($_POST['content']) ? $_POST['content'] : $new['content'] ?></textarea>
-    </div>
-    <div class="form-group">
         <label for="seo-title">Seo title</label>
         <input type="text" name="seo_title" value="<?php echo isset($_POST['seo_title']) ? $_POST['seo_title'] : $new['seo_title'] ?>"
                class="form-control" id="seo-title"/>
@@ -108,11 +111,37 @@
             <option value="1" <?php echo $selected_active ?>>Active</option>
         </select>
     </div>
-    <div class="form-group">
-        <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
-        <a href="index.php?controller=news&action=index" class="btn btn-default">Back</a>
-    </div>
-</form>
+                  </thead>
+                </table>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 style="font-size:18px;" class="card-title">Nội dung bài viết</h3>
+              </div>
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                     <div class="form-group">
+        <textarea name="content" id="description"
+                  class="form-control"><?php echo isset($_POST['content']) ? $_POST['content'] : $new['content'] ?></textarea>
+                      </div>
+                  </thead>
+                          <div class="card-footer">
+                  <button type="submit" name="submit" class="btn btn-primary">Chỉnh sửa</button>
+                  <button type="reset" class="btn btn-secondary" name="submit">Reset</button>
+                  <a class="btn btn-lg btn-secondary" href="index.php?controller=news&action=index">Quay lại</a>
+                </div>
+                </table>
+              </div>
+            </div>
+          </div>
+              </form>
+        </div>
 <script type="text/javascript">
     function updatesubcate()
             {

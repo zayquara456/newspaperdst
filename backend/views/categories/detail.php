@@ -1,7 +1,14 @@
-<h1>Chi tiết danh mục</h1>
-
-<table class="table table-bordered">
-    <tr>
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 style="font-size:18px;" class="card-title">Chi tiết danh mục #<?php echo $category['id']; ?></h3>
+              </div>
+              <!-- ./card-header -->
+              <div class="card-body">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
         <th>ID</th>
         <td><?php echo $category['id']; ?></td>
     </tr>
@@ -37,8 +44,12 @@
             ?>
         </td>
     </tr>
- 
-
-</table>
-<a class="btn btn-primary" href="index.php?controller=category">Back</a>
-
+                  </thead>
+                </table>
+                <a class="btn btn-lg btn-primary" href="index.php?controller=category">Back</a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>

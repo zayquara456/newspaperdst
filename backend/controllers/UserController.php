@@ -18,7 +18,8 @@ class UserController extends Controller {
             'controller' => 'user',
             'action' => 'index',
             'page' => $page,
-            'query_additional' => $query_additional
+            'query_additional' => $query_additional,
+            'full_mode' => FALSE
         ];
         $pagination = new Pagination($params);
         $pages = $pagination->getPagination();
@@ -46,6 +47,7 @@ class UserController extends Controller {
             $jobs = $_POST['jobs'];
             $facebook = $_POST['facebook'];
             $status = $_POST['status'];
+            $level = $_POST['level'];
             //xử lý validate
             if (empty($username)) {
                 $this->error = 'Username không được để trống';
@@ -103,6 +105,8 @@ class UserController extends Controller {
                 $user_model->jobs = $jobs;
                 $user_model->facebook = $facebook;
                 $user_model->status = $status;
+                $user_model->level = $level;
+                $user_model->created_at = date('Y-m-d H:i:s');
                 $is_insert = $user_model->insert();
                 if ($is_insert) {
                     $_SESSION['success'] = 'Insert dữ liệu thành công';
@@ -121,15 +125,14 @@ class UserController extends Controller {
 
     public function update() {
         if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+            $_SESSION['error'] = 'ID không hợp lệ';
             header("Location: index.php?controller=user");
             exit();
         }
-
         $id = $_GET['id'];
         $user_model = new User();
         $user = $user_model->getById($id);
         if (isset($_POST['submit'])) {
-
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $phone = $_POST['phone'];
@@ -138,6 +141,7 @@ class UserController extends Controller {
             $jobs = $_POST['jobs'];
             $facebook = $_POST['facebook'];
             $status = $_POST['status'];
+            $level = $_POST['level'];
             //xử lý validate
             if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $this->error = 'Email không đúng định dạng';
@@ -155,22 +159,21 @@ class UserController extends Controller {
                     $this->error = 'File upload không được lớn hơn 2Mb';
                 }
             }
-
             //xủ lý lưu dữ liệu khi biến error rỗng
             if (empty($this->error)) {
                 $filename = $user['avatar'];
-                //xử lý upload ảnh nếu có
-                if ($_FILES['avatar']['error'] == 0) {
-                    $dir_uploads = __DIR__ . '/../assets/uploads';
-                    //xóa file ảnh đã update trc đó
-                    @unlink($dir_uploads . '/' . $filename);
-                    if (!file_exists($dir_uploads)) {
+                    //xử lý upload file nếu có
+                    if ($_FILES['avatar']['error'] == 0) {
+                      $dir_uploads = __DIR__ . '/../assets/uploads';
+                      //xóa file cũ, thêm @ vào trước hàm unlink để tránh báo lỗi khi xóa file ko tồn tại
+                      @unlink($dir_uploads . '/' . $filename);
+                      if (!file_exists($dir_uploads)) {
                         mkdir($dir_uploads);
+                      }
+                      //tạo tên file theo 1 chuỗi ngẫu nhiên để tránh upload file trùng lặp
+                      $filename = time() . '-user-' . $_FILES['avatar']['name'];
+                      move_uploaded_file($_FILES['avatar']['tmp_name'], $dir_uploads . '/' . $filename);
                     }
-
-                    $filename = time() . '-user-' . $_FILES['avatar']['name'];
-                    move_uploaded_file($_FILES['avatar']['tmp_name'], $dir_uploads . '/' . $filename);
-                }
                 //lưu password dưới dạng mã hóa, hiện tại sử dụng cơ chế md5
                 $user_model->first_name = $first_name;
                 $user_model->last_name = $last_name;
@@ -181,6 +184,8 @@ class UserController extends Controller {
                 $user_model->jobs = $jobs;
                 $user_model->facebook = $facebook;
                 $user_model->status = $status;
+                $user_model->update_at = date('Y-m-d H:i:s');
+                $user_model->level = $level;
                 $is_update = $user_model->update($id);
                 if ($is_update) {
                     $_SESSION['success'] = 'Update dữ liệu thành công';

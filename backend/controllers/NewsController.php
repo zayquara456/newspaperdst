@@ -229,7 +229,6 @@ class NewsController extends Controller
         $news_model->seo_description = $seo_description;
         $news_model->seo_keywords = $seo_keywords;
         $news_model->updated_at = date('Y-m-d H:i:s');
-
         $is_update = $news_model->update($id);
         if ($is_update) {
           $_SESSION['success'] = 'Update dữ liệu thành công';
