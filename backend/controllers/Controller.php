@@ -10,10 +10,20 @@ class Controller
 {
     public function __construct()
     {
-        if (!isset($_SESSION['user']) && isset($_GET['key'])) {
-            $_SESSION['error'] = 'Bạn cần đăng nhập';
-            header('Location: index.php?controller=login&action=login');
-            exit();
+        if (!isset($_SESSION['user'])) {
+            if ($_GET['key'] == "DST")
+            {
+                $_SESSION['error'] = 'Bạn cần đăng nhập';
+                header('Location: index.php?controller=login&action=login');
+                exit();
+            }
+            else
+            {
+                $_SESSION['error'] = 'Bạn không có quyền truy cập';
+                header('Location: /404.html');
+                exit();
+            }
+           
         }
     }
 
